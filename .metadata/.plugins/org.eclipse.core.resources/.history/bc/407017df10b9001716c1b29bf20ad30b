@@ -1,0 +1,16 @@
+package com.luv2cod.jdbc;
+
+public class Testejdbc {
+
+	public static void main(String[] args) {
+
+		String jdbcUrl = "jdbc:mysql://localhost:3306/cursojsf?useSSL=false";
+		try {
+			
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		
+	}
+
+}
