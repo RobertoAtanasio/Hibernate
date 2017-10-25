@@ -1,0 +1,49 @@
+package com.luv2cod.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.luv2cod.model.Student;
+
+public class Testejdbc {
+
+	public static void main(String[] args) {
+
+		String jdbcUrl = "jdbc:mysql://localhost:3306/cursojsf?useSSL=false";
+		String user = "root";
+		String pass = "";
+		
+		Connection con = null;
+		try {
+			System.out.println("Connecting to database: " + jdbcUrl);
+			con = DriverManager.getConnection(jdbcUrl, user, pass);
+			System.out.println("Connection succesful!");
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		
+		SessionFactory factory = new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Student.class)
+				.buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		
+		try {
+			Student student = new Student("Roberto","Lima","roberto.atanasio.pl@gmail.com");
+			session.beginTransaction();
+			session.save(student);
+			session.getTransaction().commit();
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		} finally {
+			factory.close();
+		}
+		
+	}
+
+}
