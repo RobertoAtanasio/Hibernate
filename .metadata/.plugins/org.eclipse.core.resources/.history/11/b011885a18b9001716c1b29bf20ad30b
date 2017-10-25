@@ -1,0 +1,5 @@
+package com.luv2cod.model;
+
+public class Student {
+
+}
